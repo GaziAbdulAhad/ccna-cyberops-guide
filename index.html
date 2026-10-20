@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CCNA Cyber Ops · Exam Guide</title>
+    <!-- Font Awesome 6 (free) for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background: #f0f4f8;
+            color: #1a2639;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        /* ----- NAV BAR ----- */
+        .navbar {
+            background: #0b1a2e;
+            padding: 0.9rem 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1.4rem;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: #3e9bff;
+            font-size: 1.8rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            gap: 0.5rem;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            color: #e6edf5;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 0.6rem 1rem;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s, color 0.2s;
+            white-space: nowrap;
+        }
+
+        .nav-link i {
+            font-size: 0.9rem;
+        }
+
+        .nav-link:hover,
+        .nav-item.active .nav-link {
+            background: #1e3a5f;
+            color: #ffffff;
+        }
+
+        /* Dropdown */
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #ffffff;
+            min-width: 300px;
+            max-width: 380px;
+            border-radius: 16px;
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
+            padding: 0.8rem 0;
+            list-style: none;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+            z-index: 1001;
+            border: 1px solid #e0e7ef;
+        }
+
+        .nav-item:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown li a {
+            display: block;
+            padding: 0.65rem 1.5rem;
+            color: #1e2b3c;
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 500;
+            transition: background 0.15s, color 0.15s;
+            border-left: 4px solid transparent;
+        }
+
+        .dropdown li a:hover {
+            background: #f0f7ff;
+            color: #0a58ca;
+            border-left-color: #0a58ca;
+        }
+
+        .dropdown .subgroup {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 700;
+            color: #6c7a8a;
+            padding: 0.6rem 1.5rem 0.3rem;
+            border-bottom: 1px solid #eef2f6;
+            margin-bottom: 0.3rem;
+        }
+
+        /* Main content */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 2rem 2.2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+            border: 1px solid #e9eef4;
+            scroll-margin-top: 100px;
+        }
+
+        h2 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: #0b1a2e;
+            margin-bottom: 1.6rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 3px solid #3e9bff;
+            padding-bottom: 0.6rem;
+        }
+
+        h2 i {
+            color: #3e9bff;
+            font-size: 2rem;
+        }
+
+        .topic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .topic-card {
+            background: #f9fcff;
+            padding: 0.9rem 1.2rem;
+            border-radius: 14px;
+            font-size: 0.95rem;
+            border-left: 5px solid #3e9bff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .topic-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 18px rgba(0, 80, 200, 0.08);
+            background: #ffffff;
+        }
+
+        .topic-card strong {
+            color: #0b2b4a;
+            font-weight: 700;
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+        .topic-card .badge {
+            background: #0b1a2e;
+            color: white;
+            padding: 0.1rem 0.6rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-left: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .sub-list {
+            list-style: none;
+            margin-top: 0.4rem;
+            padding-left: 0.6rem;
+        }
+
+        .sub-list li {
+            font-size: 0.85rem;
+            color: #2a4058;
+            padding: 0.15rem 0;
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+        }
+
+        .sub-list li i {
+            color: #3e9bff;
+            font-size: 0.6rem;
+            opacity: 0.8;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin: 3rem 0 2rem;
+            color: #5a6f84;
+            font-size: 0.9rem;
+            border-top: 1px solid #d9e2ec;
+            padding-top: 2rem;
+        }
+
+        /* responsive */
+        @media (max-width: 850px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.8rem;
+                padding: 1rem;
+            }
+            .nav-menu {
+                width: 100%;
+                justify-content: flex-start;
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                padding-bottom: 5px;
+            }
+            .dropdown {
+                position: fixed;
+                top: auto;
+                left: 1rem;
+                right: 1rem;
+                min-width: auto;
+                width: calc(100% - 2rem);
+            }
+            .container {
+                padding: 0 1rem;
+            }
+            section {
+                padding: 1.5rem;
+            }
+            h2 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== NAV BAR ========== -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-shield-halded"></i> <!-- shield-halded is not free? use shield-alt -->
+            <i class="fas fa-shield-alt"></i> CCNA CyberOps
+        </div>
+        <ul class="nav-menu">
+            <!-- 1. Security Concepts -->
+            <li class="nav-item">
+                <a href="#security-concepts" class="nav-link">
+                    <i class="fas fa-lock"></i> Security Concepts
+                </a>
+                <ul class="dropdown">
+                    <li class="subgroup">1.0 Security Concepts (20%)</li>
+                    <li><a href="#sec1-1">1.1 CIA triad</a></li>
+                    <li><a href="#sec1-2">1.2 Compare security deployments</a></li>
+                    <li><a href="#sec1-3">1.3 Security terms (TI, hunting, malware, etc.)</a></li>
+                    <li><a href="#sec1-4">1.4 Risk, threat, vulnerability, exploit</a></li>
+                    <li><a href="#sec1-5">1.5 Defense-in-depth strategy</a></li>
+                    <li><a href="#sec1-6">1.6 Access control models (DAC, MAC, RBAC, etc.)</a></li>
+                    <li><a href="#sec1-7">1.7 CVSS terms</a></li>
+                    <li><a href="#sec1-8">1.8 Data visibility challenges</a></li>
+                    <li><a href="#sec1-9">1.9 Data loss from traffic profiles</a></li>
+                    <li><a href="#sec1-10">1.10 5-tuple approach</a></li>
+                    <li><a href="#sec1-11">1.11 Rule-based vs behavioral detection</a></li>
+                </ul>
+            </li>
+            <!-- 2. Security Monitoring -->
+            <li class="nav-item">
+                <a href="#security-monitoring" class="nav-link">
+                    <i class="fas fa-eye"></i> Security Monitoring
+                </a>
+                <ul class="dropdown">
+                    <li class="subgroup">2.0 Security Monitoring (25%)</li>
+                    <li><a href="#sec2-1">2.1 Attack surface vs vulnerability</a></li>
+                    <li><a href="#sec2-2">2.2 Data from TCPdump, NetFlow, firewalls, etc.</a></li>
+                    <li><a href="#sec2-3">2.3 Impact of ACL, NAT, encryption, etc.</a></li>
+                    <li><a href="#sec2-4">2.4 Data types: full packet capture, session, metadata…</a></li>
+                    <li><a href="#sec2-5">2.5 Network attacks (DoS, DDoS, MITM)</a></li>
+                    <li><a href="#sec2-6">2.6 Web app attacks (SQLi, XSS, command inj.)</a></li>
+                    <li><a href="#sec2-7">2.7 Social engineering (incl. Gen AI)</a></li>
+                    <li><a href="#sec2-8">2.8 Endpoint attacks (buffer overflow, C2, ransomware)</a></li>
+                    <li><a href="#sec2-9">2.9 Evasion and obfuscation (tunneling, proxies)</a></li>
+                    <li><a href="#sec2-10">2.10 Certificates & PKI impact</a></li>
+                    <li><a href="#sec2-11">2.11 Certificate components (X.509, cipher suites)</a></li>
+                </ul>
+            </li>
+            <!-- 3. Host-Based Analysis -->
+            <li class="nav-item">
+                <a href="#host-based-analysis" class="nav-link">
+                    <i class="fas fa-desktop"></i> Host-Based Analysis
+                </a>
+                <ul class="dropdown">
+                    <li class="subgroup">3.0 Host-Based Analysis (20%)</li>
+                    <li><a href="#sec3-1">3.1 Endpoint technologies (HIDS, antivirus, firewall)</a></li>
+                    <li><a href="#sec3-2">3.2 OS components (Windows / Linux)</a></li>
+                    <li><a href="#sec3-3">3.3 Attribution (assets, IOCs, IOAs, chain of custody)</a></li>
+                    <li><a href="#sec3-4">3.4 Evidence types (best, corroborative, indirect)</a></li>
+                    <li><a href="#sec3-5">3.5 Interpret logs (OS, SIEM, SOAR, CLI)</a></li>
+                    <li><a href="#sec3-6">3.6 Malware sandbox output</a></li>
+                    <li><a href="#sec3-7">3.7 Hashes, URLs, systems/events/networking</a></li>
+                </ul>
+            </li>
+            <!-- 4. Network Intrusion Analysis -->
+            <li class="nav-item">
+                <a href="#network-intrusion-analysis" class="nav-link">
+                    <i class="fas fa-network-wired"></i> Network Intrusion Analysis
+                </a>
+                <ul class="dropdown">
+                    <li class="subgroup">4.0 Network Intrusion Analysis (20%)</li>
+                    <li><a href="#sec4-1">4.1 Map events to source technologies (IDS, proxy, etc.)</a></li>
+                    <li><a href="#sec4-2">4.2 False positive / negative / benign</a></li>
+                    <li><a href="#sec4-3">4.3 Deep packet inspection vs packet filtering</a></li>
+                    <li><a href="#sec4-4">4.4 Inline vs taps/traffic monitoring</a></li>
+                    <li><a href="#sec4-5">4.5 Taps vs NetFlow characteristics</a></li>
+                    <li><a href="#sec4-6">4.6 Extract files from PCAP (Wireshark)</a></li>
+                    <li><a href="#sec4-7">4.7 Key intrusion elements (IP, port, protocol)</a></li>
+                    <li><a href="#sec4-8">4.8 Protocol header fields (Ethernet, IP, TCP, UDP, ICMP, DNS, HTTP…)</a></li>
+                    <li><a href="#sec4-9">4.9 Artifact elements (IP, ports, process, hashes, URL)</a></li>
+                    <li><a href="#sec4-10">4.10 Basic regular expressions</a></li>
+                </ul>
+            </li>
+            <!-- 5. Security Policies and Procedures -->
+            <li class="nav-item">
+                <a href="#security-policies" class="nav-link">
+                    <i class="fas fa-file-contract"></i> Security Policies
+                </a>
+                <ul class="dropdown">
+                    <li class="subgroup">5.0 Security Policies & Procedures (15%)</li>
+                    <li><a href="#sec5-1">5.1 Management concepts (asset, config, patch…)</a></li>
+                    <li><a href="#sec5-2">5.2 Incident response plan (NIST SP800-61)</a></li>
+                    <li><a href="#sec5-3">5.3 Apply incident handling process</a></li>
+                    <li><a href="#sec5-4">5.4 Map to NIST IR steps</a></li>
+                    <li><a href="#sec5-5">5.5 Stakeholders vs NIST IR categories</a></li>
+                    <li><a href="#sec5-6">5.6 NIST SP800-86 (evidence, integrity, volatile data)</a></li>
+                    <li><a href="#sec5-7">5.7 Network profiling elements</a></li>
+                    <li><a href="#sec5-8">5.8 Server profiling elements</a></li>
+                    <li><a href="#sec5-9">5.9 Protected data (PII, PSI, PHI, IP)</a></li>
+                    <li><a href="#sec5-10">5.10 Cyber Kill Chain & Diamond Model</a></li>
+                    <li><a href="#sec5-11">5.11 SOC metrics & scope analysis</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <div class="container">
+
+        <!-- ===== 1.0 Security Concepts ===== -->
+        <section id="security-concepts">
+            <h2><i class="fas fa-lock"></i> 1.0 Security Concepts (20%)</h2>
+            <div class="topic-grid">
+                <div class="topic-card" id="sec1-1"><strong>1.1</strong> CIA triad <span class="badge">core</span></div>
+                <div class="topic-card" id="sec1-2"><strong>1.2</strong> Compare security deployments
+                    <ul class="sub-list">
+                        <li><i class="fas fa-circle"></i> Network, endpoint, application security</li>
+                        <li><i class="fas fa-circle"></i> Agentless vs agent-based</li>
+                        <li><i class="fas fa-circle"></i> Legacy AV vs antimalware</li>
+                        <li><i class="fas fa-circle"></i> SIEM, SOAR, log management</li>
+                        <li><i class="fas fa-circle"></i> Container & virtual environments</li>
+                        <li><i class="fas fa-circle"></i> Cloud security deployments</li>
+                    </ul>
+                </div>
+                <div class="topic-card" id="sec1-3"><strong>1.3</strong> Security terms
+                    <ul class="sub-list">
+                        <li><i class="fas fa-circle"></i> Threat intelligence (TI)</li>
+                        <li><i class="fas fa-circle"></i> Threat hunting</li>
+                        <li><i class="fas fa-circle"></i> Malware analysis</li>
+                        <li><i class="fas fa-circle"></i> Threat actor</li>
+                        <li><i class="fas fa-circle"></i> Run book automation (RBA)</li>
+                        <li><i class="fas fa-circle"></i> Reverse engineering</li>
+                        <li><i class="fas fa-circle"></i> Sliding window anomaly detection</li>
+                        <li><i class="fas fa-circle"></i> Threat modeling</li>
+                        <li><i class="fas fa-circle"></i> DevSecOps</li>
+                    </ul>
+                </div>
+                <div class="topic-card" id="sec1-4"><strong>1.4</strong> Risk, threat, vulnerability, exploit
+                    <ul class="sub-list">
+                        <li><i class="fas fa-circle"></i> Risk scoring / weighting / assessment</li>
+                        <li><i class="fas fa-circle"></i> Threat</li>
+                        <li><i class="fas fa-circle"></i> Vulnerability</li>
+                        <li><i class="fas fa-circle"></i> Exploit</li>
+                    </ul>
+                </div>
+                <div class="topic-card" id="sec1-5"><strong>1.5</strong> Defense-in-depth strategy</div>
+                <div class="topic-card" id="sec1-6"><strong>1.6</strong> Access control models
+                    <ul class="sub-list">
+                        <li><i class="fas fa-circle"></i> Discretionary (DAC)</li>
+                        <li><i class="fas fa-circle"></i> Mandatory (MAC)</li>
+                        <li><i class="fas fa-circle"></i> Nondiscretionary</li>
+                        <li><i class="fas fa-circle"></i> Authentication, authorization, accounting</li>
+                        <li><i class="fas fa-circle"></i> Rule-based, time-based, role-based (RBAC), attribute-based (ABAC)</li>
+                    </ul>
+                </div>
+                <div class="topic-card" id="sec1-7"><strong>1.7</strong> CVSS terms
+                    <ul class="sub-list">
+                        <li><i class="fas fa-circle"></i> Attack vector, complexity</li>
+                        <li><i class="fas fa-circle"></i> Privileges required, user interaction</li>
+                        <li><i class="fas fa-circle"></i> Scope, temporal, environmental</li>
+                    </ul>
+                </div>
+                <div class="topic-card" id="sec1-8"><strong>1.8</strong> Data visibility challenges (network, host, cloud)</div>
+                <div class="topic-card" id="sec1-9"><strong>1.9</strong> Potential data loss from traffic profiles</div>
+                <div class="topic-card" id="sec1-10"><strong>1.10</strong> 5-tuple approach to isolate compromised host</div>
+                <div class="topic-card" id="sec1-11"><strong>1.11</strong> Rule-based vs behavioral / statistical detection</div>
+            </div>
+        </section>
+
+        <!-- ===== 2.0 Security Monitoring ===== -->
+        <section id="security-monitoring">
+            <h2><i class="fas fa-eye"></i> 2.0 Security Monitoring (25%)</h2>
+            <div class="topic-grid">
+                <div class="topic-card" id="sec2-1"><strong>2.1</strong> Attack surface vs vulnerability</div>
+                <div class="topic-card" id="sec2-2"><strong>2.2</strong> Data from technologies
+                    <ul class="sub-list">
+                        <li><i class="fas fa-circle"></i> TCPdump, NetFlow</li>
+                        <li><i class="fas fa-circle"></i> Next-gen firewall, stateful firewall</li>
+                        <li><i class="fas fa-circle"></i> Application visibility & control</li>
+                        <li><i class="fas fa-circle"></i> Web / email content filtering</li>
+                    </ul>
+                </div>
+                <div class="topic-card" id="sec2-3"><strong>2.3</strong> Impact on data visibility
+                    <ul class="sub-list">
+                        <li><i class="fas fa-circle"></i> ACL, NAT/PAT, tunneling, TOR</li>
+                        <li><i class="fas fa-circle"></i> Encryption, P2P, encapsulation, load balancing</li>
+                    </ul>
+                </div>
+                <div class="topic-card" id="sec2-4"><strong>2.4</strong> Data types in monitoring
+                    <ul class="sub-list">
+                        <li><i class="fas fa-circle"></i> Full packet capture, session data</li>
+                        <li><i class="fas fa-circle"></i> Transaction data, statistical data</li>
+                        <li><i class="fas fa-circle"></i> Metadata, alert data</li>
+                    </ul>
+                </div>
+                <div class="topic-card" id="sec2-5"><strong>2.5</strong> Network attacks (protocol-based, DoS, DDoS, MITM)</div>
+                <div class="topic-card" id="sec2-6"><strong>2.6</strong> Web application attacks (SQLi, command inj., XSS)</div>
+                <div class="topic-card" id="sec2-7"><strong>2.7</strong> Social engineering (manual & generative AI)</div>
+                <div class="topic-card" id="sec2-8"><strong>2.8</strong> Endpoint attacks (buffer overflow, C2, malware, ransomware)</div>
+                <div class="topic-card" id="sec2-9"><strong>2.9</strong> Evasion & obfuscation (tunneling, encryption, proxies)</div>
+                <div class="topic-card" id="sec2-10"><strong>2.10</strong> Impact of certificates (PKI, asymmetric/symmetric)</div>
+                <div class="topic-card" id="sec2-11"><strong>2.11</strong> Certificate components
+                    <ul class="sub-list">
+                        <li><i class="fas fa-circle"></i> Cipher-suite, X.509 certificates</li>
+                        <li><i class="fas fa-circle"></i> Key exchange, protocol version, PKCS</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 3.0 Host-Based Analysis ===== -->
+        <section id="host-based-analysis">
+            <h2><i class="fas fa-desktop"></i> 3.0 Host-Based Analysis (20%)</h2>
+            <div class="topic-grid">
+                <div class="topic-card" id="sec3-1"><strong>3.1</strong> Endpoint technologies (rules, signatures, predictive AI)
+                    <ul class="sub-list">
+                        <li><i class="fas fa-circle"></i> Host-based intrusion detection (HIDS)</li>
+                        <li><i class="fas fa-circle"></i> Antimalware / antivirus</li>
+                        <li><i class="fas fa-circle"></i> Host-based firewall</li>
+                    </ul>
+                </div>
+                <div class="topic-card" id="sec3-2"><strong>3.2</strong> OS components (Windows / Linux) in a scenario</div>
+                <div class="topic-card" id="sec3-3"><strong>3.3</strong> Role of attribution
+                    <ul class="sub-list">
+                        <li><i class="fas fa-circle"></i> Assets, threat actor</li>
+                        <li><i class="fas fa-circle"></i> Indicators of compromise (IOC)</li>
+                        <li><i class="fas fa-circle"></i> Indicators of attack (IOA)</li>
+                        <li><i class="fas fa-circle"></i> Chain of custody</li>
+                    </ul>
+                </div>
+                <div class="topic-card" id="sec3-4"><strong>3.4</strong> Type of evidence from logs
+                    <ul class="sub-list">
+                        <li><i class="fas fa-circle"></i> Best evidence</li>
+                        <li><i class="fas fa-circle"></i> Corroborative evidence</li>
+                        <li><i class="fas fa-circle"></i> Indirect evidence</li>
+                    </ul>
+                </div>
+                <div class="topic-card" id="sec3-5"><strong>3.5</strong> Interpret logs (OS, SIEM, SOAR, CLI, application)</div>
+                <div class="topic-card" id="sec3-6"><strong>3.6</strong> Malware analysis output (detonation chamber / sandbox)</div>
+                <div class="topic-card" id="sec3-7"><strong>3.7</strong> Hashes, URLs, systems/events/networking</div>
+            </div>
+        </section>
+
+        <!-- ===== 4.0 Network Intrusion Analysis ===== -->
+        <section id="network-intrusion-analysis">
+            <h2><i class="fas fa-network-wired"></i> 4.0 Network Intrusion Analysis (20%)</h2>
+            <div class="topic-grid">
+                <div class="topic-card" id="sec4-1"><strong>4.1</strong> Map events to source technologies
+                    <ul class="sub-list">
+                        <li><i class="fas fa-circle"></i> IDS/IPS, firewall, network app control</li>
+                        <li><i class="fas fa-circle"></i> Proxy logs, antivirus, NetFlow</li>
+                    </ul>
+                </div>
+                <div class="topic-card" id="sec4-2"><strong>4.2</strong> Impact vs no impact
+                    <ul class="sub-list">
+                        <li><i class="fas fa-circle"></i> False positive / negative</li>
+                        <li><i class="fas fa-circle"></i> True positive / negative</li>
+                        <li><i class="fas fa-circle"></i> Benign</li>
+                    </ul>
+                </div>
+                <div class="topic-card" id="sec4-3"><strong>4.3</strong> Deep packet inspection vs packet filtering / stateful firewall</div>
+                <div class="topic-card" id="sec4-4"><strong>4.4</strong> Inline traffic interrogation vs taps / monitoring</div>
+                <div class="topic-card" id="sec4-5"><strong>4.5</strong> Taps/monitoring vs NetFlow (transactional data)</div>
+                <div class="topic-card" id="sec4-6"><strong>4.6</strong> Extract files from TCP stream (PCAP + Wireshark)</div>
+                <div class="topic-card" id="sec4-7"><strong>4.7</strong> Key elements in intrusion (PCAP)
+                    <ul class="sub-list">
+                        <li><i class="fas fa-circle"></i> Source/dest address, source/dest port</li>
+                        <li><i class="fas fa-circle"></i> Protocols, payloads</li>
+                    </ul>
+                </div>
+                <div class="topic-card" id="sec4-8"><strong>4.8</strong> Protocol header fields
+                    <ul class="sub-list">
+                        <li><i class="fas fa-circle"></i> Ethernet, IPv4, IPv6, TCP, UDP, ICMP</li>
+                        <li><i class="fas fa-circle"></i> DNS, SMTP/POP3/IMAP, HTTP/HTTPS/HTTP2, ARP</li>
+                    </ul>
+                </div>
+                <div class="topic-card" id="sec4-9"><strong>4.9</strong> Common artifact elements
+                    <ul class="sub-list">
+                        <li><i class="fas fa-circle"></i> IP (source/dest), client/server ports</li>
+                        <li><i class="fas fa-circle"></i> Process (file/registry), system (API calls)</li>
+                        <li><i class="fas fa-circle"></i> Hashes, URI/URL</li>
+                    </ul>
+                </div>
+                <div class="topic-card" id="sec4-10"><strong>4.10</strong> Basic regular expressions</div>
+            </div>
+        </section>
+
+        <!-- ===== 5.0 Security Policies and Procedures ===== -->
+        <section id="security-policies">
+            <h2><i class="fas fa-file-contract"></i> 5.0 Security Policies & Procedures (15%)</h2>
+            <div class="topic-grid">
+                <div class="topic-card" id="sec5-1"><strong>5.1</strong> Management concepts
+                    <ul class="sub-list">
+                        <li><i class="fas fa-circle"></i> Asset, configuration, mobile device</li>
+                        <li><i class="fas fa-circle"></i> Patch, vulnerability management</li>
+                    </ul>
+                </div>
+                <div class="topic-card" id="sec5-2"><strong>5.2</strong> Incident response plan (NIST SP800-61) elements</div>
+                <div class="topic-card" id="sec5-3"><strong>5.3</strong> Apply incident handling process to an event</div>
+                <div class="topic-card" id="sec5-4"><strong>5.4</strong> Map elements to NIST IR steps
+                    <ul class="sub-list">
+                        <li><i class="fas fa-circle"></i> Preparation</li>
+                        <li><i class="fas fa-circle"></i> Detection & analysis</li>
+                        <li><i class="fas fa-circle"></i> Containment, eradication, recovery</li>
+                        <li><i class="fas fa-circle"></i> Post-incident (lessons learned)</li>
+                    </ul>
+                </div>
+                <div class="topic-card" id="sec5-5"><strong>5.5</strong> Stakeholders vs NIST IR categories (CMMC, SP800-61)</div>
+                <div class="topic-card" id="sec5-6"><strong>5.6</strong> NIST SP800-86 concepts
+                    <ul class="sub-list">
+                        <li><i class="fas fa-circle"></i> Evidence collection order</li>
+                        <li><i class="fas fa-circle"></i> Data integrity, data preservation</li>
+                        <li><i class="fas fa-circle"></i> Volatile data collection</li>
+                    </ul>
+                </div>
+                <div class="topic-card" id="sec5-7"><strong>5.7</strong> Network profiling elements
+                    <ul class="sub-list">
+                        <li><i class="fas fa-circle"></i> Total throughput, session duration</li>
+                        <li><i class="fas fa-circle"></i> Ports used, critical asset address space</li>
+                    </ul>
+                </div>
+                <div class="topic-card" id="sec5-8"><strong>5.8</strong> Server profiling elements
+                    <ul class="sub-list">
+                        <li><i class="fas fa-circle"></i> Listening ports, logged-in users/service accounts</li>
+                        <li><i class="fas fa-circle"></i> Running processes, tasks, applications</li>
+                    </ul>
+                </div>
+                <div class="topic-card" id="sec5-9"><strong>5.9</strong> Protected data
+                    <ul class="sub-list">
+                        <li><i class="fas fa-circle"></i> PII, PSI, PHI, intellectual property</li>
+                    </ul>
+                </div>
+                <div class="topic-card" id="sec5-10"><strong>5.10</strong> Classify intrusion events (Cyber Kill Chain, Diamond Model)</div>
+                <div class="topic-card" id="sec5-11"><strong>5.11</strong> SOC metrics & scope analysis
+                    <ul class="sub-list">
+                        <li><i class="fas fa-circle"></i> Time to detect, contain, respond, control</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <div class="footer-note">
+            <i class="fas fa-shield-alt"></i> CCNA Cybersecurity Operations (200-201) · Exam topics v1.2 – July 2025
+        </div>
+    </div>
+</body>
+</html>
